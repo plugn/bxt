@@ -1,8 +1,10 @@
 <template>
 	<div class="hello">
 		<h1>{{ msg }}</h1>
-		<input type="file" @change="readFile($event)"><br>
-		<img :src="imgData" height="200" title="Image preview..." v-if="imgData">
+		<input type="file" @change="readFile($event)" accept="image/*">
+    <button @click="clearImageData" v-if="imgData">x</button>
+		<br>
+		<img v-if="imgData" :src="imgData" title="Image Preview">
 	</div>
 </template>
 
@@ -17,26 +19,24 @@ export default {
 		}
 	},
 	methods: {
+	  clearImageData() {
+	    this.imgData = '';
+    },
 		readFile($event) {
-      console.log(' * $event: ', $event);
-      const fileInput = $event && $event.target;
-      console.log(' * fileInput : ', fileInput);
-      let file = fileInput && fileInput.files && fileInput.files.length && fileInput.files[0];
-      // if (!file) { return; }
-
-		  let reader = new FileReader();
-      reader.onloadend = () => {
-        console.log(' * reader.result: ', reader.result);
-        this.imgData = reader.result;
-      };
-      console.log(' * reader: ', reader);
-      console.log(' * file: ', file);
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-      else {
-        this.imgData = '';
-      }
+			const fileInput = $event && $event.target;
+			// console.log(' * fileInput : ', fileInput);
+			let file = fileInput && fileInput.files && fileInput.files.length && fileInput.files[0];
+			let reader = new FileReader();
+			reader.onloadend = () => {
+				this.imgData = reader.result;
+			};
+			// console.log(' * reader: ', reader, ' * file: ', file);
+			if (file) {
+				reader.readAsDataURL(file);
+			}
+			else {
+				this.imgData = '';
+			}
 
 
 		}
@@ -58,5 +58,8 @@ li {
 }
 a {
 	color: #42b983;
+}
+img {
+	height: 200px;
 }
 </style>
