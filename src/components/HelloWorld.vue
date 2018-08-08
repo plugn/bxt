@@ -1,7 +1,7 @@
 <template>
 	<div class="hello">
 		<h1>{{ msg }}</h1>
-		<input type="file" @change="readFile($event)" accept="image/*">
+		<input type="file" @change="readFile($event)" @focus="clearImageData" accept="image/*">
     <button @click="clearImageData" v-if="imgData">x</button>
 		<br>
 		<img v-if="imgData" :src="imgData" title="Image Preview">
@@ -37,8 +37,6 @@ export default {
 			else {
 				this.imgData = '';
 			}
-
-
 		}
 	}
 }
