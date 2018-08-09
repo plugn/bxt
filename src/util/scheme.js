@@ -22,7 +22,7 @@ export const BookScheme = [
 		name: 'authors',
 		required: true,
 		validate(val) {
-			if (!Array.isArray(val) || val.length > 0) return false;
+			if (!Array.isArray(val) || !val.length) return false;
 
 			return val.every(author => {
 				const isOkFirst = validateStringProp(author, 'firstName', 20);
