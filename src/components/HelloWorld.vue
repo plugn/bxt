@@ -1,6 +1,6 @@
 <template>
 	<div class="hello">
-		<h1>{{ msg }}</h1>
+		<h3>{{ msg }}</h3>
 		<input type="file" @change="readFile($event)" @focus="clearImageData($event)" accept="image/*">
     <button @click="clearImageData" v-if="imgData">x</button>
 		<br>

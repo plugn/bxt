@@ -1,6 +1,6 @@
 <template>
 <div>
-	<h2>List</h2>
+	<h3>List</h3>
 
 	<table class="pure-table pure-table-bordered">
 		<thead><tr>

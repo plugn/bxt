@@ -1,5 +1,5 @@
 <template>
-	<div><ul>
+	<div><ul class="menu">
 		<li><router-link to="/">Home</router-link></li>
 		<li><router-link to="/list">List</router-link></li>
 		<li><router-link to="/edit">Edit</router-link></li>
@@ -14,5 +14,25 @@
 </script>
 
 <style scoped>
+	.menu {
+		text-align: center;
+	}
 
+	h1, h2 {
+		font-weight: normal;
+	}
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
+	li {
+		display: inline-block;
+		margin: 0 10px;
+	}
+	a {
+		color: #42b983;
+	}
+	img {
+		height: 200px;
+	}
 </style>
