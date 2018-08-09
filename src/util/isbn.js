@@ -1,4 +1,4 @@
-import Loop from './util/Loop';
+import Loop from './Loop';
 
 /**
  *
@@ -31,15 +31,15 @@ export const ISBN = {
 		const rates = [1, 3];
 		const loop = new Loop(rates.length);
 
-		const reducer = (acc, chunk, index) => {
+		const reducer = (acc, chunk) => {
 			const rate = rates[ loop.getNextIndex() ];
 			acc += (rate * Number(chunk));
 
 			return acc;
-		}
+		};
 
 		const sum = list.reduce(reducer, 0);
-		const remain = 10 - (sum % 10)
+		const remain = 10 - (sum % 10);
 
 		return String(remain);
 	},
