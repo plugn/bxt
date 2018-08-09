@@ -12,7 +12,7 @@ export const ISBN = {
 	 * @returns {string[]}
 	 */
 	parse(str) {
-		return String(str).replace(/^ISBN|[\s-:]+/gi, '').split('');
+		return String(str).replace(/^ISBN|[\s:-]+/gi, '').split('');
 	},
 
 	calcCheckDigit10(list) {
