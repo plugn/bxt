@@ -18,6 +18,10 @@
 		text-align: center;
 	}
 
+	.router-link-exact-active {
+		text-decoration: none;
+	}
+
 	h1, h2 {
 		font-weight: normal;
 	}
