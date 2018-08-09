@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import _get from 'lodash/get';
 import {ISBN} from './isbn';
 
 const validateStringProp = (obj, propName, maxLength) => {
-	const prop = _.get(obj, propName, '');
+	const prop = _get(obj, propName, '');
 	return prop && prop.length && prop.length <= maxLength;
 };
 const NOW = new Date();
