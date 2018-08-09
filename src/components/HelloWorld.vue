@@ -19,7 +19,7 @@ export default {
 		}
 	},
 	methods: {
-		clearImageData() {
+		clearImageData($event) {
 			const fileInput = $event && $event.target;
 			this.imgData = '';
 		},
