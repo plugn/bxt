@@ -5,8 +5,10 @@ const validateStringProp = (obj, propName, maxLength) => {
 	const prop = _.get(obj, propName, '');
 	return prop && prop.length && prop.length <= maxLength;
 };
+const NOW = new Date();
+const MIN_RELEASE_DATE = new Date('1800-01-01');
 
-export const BookFields = [
+export const BookScheme = [
 	{
 		name: 'title',
 		required: true,
@@ -44,10 +46,31 @@ export const BookFields = [
 		}
 	},
 	{
+		name: 'pubYear',
+		required: false,
+		validate(val) {
+			return (typeof val === 'number') && val >= 1800 && val < Number(NOW.getFullYear());
+		}
+	},
+	{
+		name: 'releaseDate',
+		required: false,
+		validate(val) {
+			return (typeof val === 'number') && (val >= Number(MIN_RELEASE_DATE));
+		}
+	},
+	{
 		name: 'ISBN',
 		required: false,
 		validate(val) {
 			return ISBN.validate(val);
+		}
+	},
+	{
+		name: 'image',
+		required: false,
+		validate(val) {
+			return typeof val === 'string';
 		}
 	}
 

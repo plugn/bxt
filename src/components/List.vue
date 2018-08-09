@@ -1,4 +1,7 @@
 <template>
+<div>
+	<h2>List</h2>
+
 	<table class="pure-table pure-table-bordered">
 		<thead><tr>
 			<th>title</th>
@@ -32,12 +35,15 @@
 			</tr>
 		</tbody>
 	</table>
-	
+</div>
+
 </template>
 
 <script>
 	export default {
 		name: 'List',
+		components: {
+		},
 		data () {
 			return {
 				msg: 'title'
@@ -45,7 +51,3 @@
 		}
 	};
 </script>
-
-<style scoped>
-
-</style>
