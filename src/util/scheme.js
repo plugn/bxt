@@ -16,6 +16,11 @@ export const buildDateString = date => (
 	].join('-')
 );
 
+export const dateInputParams = {
+	min: buildDateString(MIN_RELEASE_DATE),
+	max: buildDateString(NOW)
+}
+
 export const BookScheme = [
 	{
 		name: 'title',
@@ -63,10 +68,6 @@ export const BookScheme = [
 	{
 		name: 'releaseDate',
 		required: false,
-		inputAttrs: {
-			min: buildDateString(MIN_RELEASE_DATE),
-			max: buildDateString(NOW)
-		},
 		validate(val) {
 			return (typeof val === 'number') && (val >= Number(MIN_RELEASE_DATE));
 		}

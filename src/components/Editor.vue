@@ -10,7 +10,11 @@
 
 		<PureInput label="Publisher" :value="bookModel.publisher"></PureInput>
 
-		<PureDateInput label="Release Date" :value="bookModel.releaseDate"></PureDateInput>
+		<PureDateInput label="Release Date"
+		   :value="bookModel.releaseDate"
+		   :min="dateInputParams.min"
+		   :max="dateInputParams.max"
+		></PureDateInput>
 
 		<div class="pure-controls">
 			<label for="cb" class="pure-checkbox">
@@ -24,52 +28,39 @@
 </template>
 
 <script>
-	import {mapGetters} from 'vuex';
-	import PureInput from './form/PureInput';
-	import PureDateInput from './form/PureDateInput';
-	import { BookScheme } from "@/util/scheme";
+import {mapGetters} from 'vuex';
+import PureInput from './form/PureInput';
+import PureDateInput from './form/PureDateInput';
+import { BookScheme, dateInputParams } from "@/util/scheme";
 
-	export default {
-		name: 'Editor',
-		components: {
-			PureInput,
-			PureDateInput
+export default {
+	name: 'Editor',
+	components: {
+		PureInput,
+		PureDateInput
+	},
+	data() {
+		return {
+			dateInputParams
+		}
+	},
+	computed: {
+		...mapGetters([
+			'getBook'
+		]),
+		bookId() {
+			return Number(this.$route.params.id);
 		},
-		data() {
-			return {
-				releaseDate: null
-			}
-		},
-		computed: {
-			...mapGetters([
-				'getBook'
-			]),
-			bookId() {
-				return Number(this.$route.params.id);
-			},
-			bookModel() {
-				console.log(' * getter this.bookId: ', this.bookId);
-				return this.bookId && this.getBook(this.bookId) || {};
-			},
-
-
-		},
-		methods: {
-			getReleaseDate() {
-				const releaseDate = BookScheme.find(field => field.name === 'releaseDate');
-				if (releaseDate) {
-					console.log(' * releaseDate.inputAttrs : ', releaseDate.inputAttrs);
-				}
-
-				return releaseDate;
-			}
-		},
-		mounted() {
-			this.releaseDate = this.getReleaseDate()
+		bookModel() {
+			console.log(' * getter this.bookId: ', this.bookId);
+			return this.bookId && this.getBook(this.bookId) || {};
 		}
 
 
-	};
+	}
+
+
+};
 </script>
 
 <style scoped>
