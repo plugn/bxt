@@ -16,6 +16,8 @@
 		   :max="dateInputParams.max"
 		></PureDateInput>
 
+		<PureInput label="ISBN" :value="bookModel.ISBN"></PureInput>
+
 		<div class="pure-controls">
 			<label for="cb" class="pure-checkbox">
 				<input id="cb" type="checkbox"> I've read the terms and conditions
