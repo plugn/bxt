@@ -35,14 +35,14 @@ export const BookScheme = [
 		name: 'pagesCount',
 		required: false,
 		validate(val) {
-			return 'number' === typeof val && val <= 10000;
+			return 'number' === typeof val && val > 0 && val <= 10000;
 		}
 	},
 	{
 		name: 'publisher',
 		required: false,
 		validate(val) {
-			return (typeof val === 'string') && (val.length <= 30)
+			return (typeof val === 'string') && val.length && val.length <= 30
 		}
 	},
 	{

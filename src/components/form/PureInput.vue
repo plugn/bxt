@@ -1,36 +1,47 @@
 <template>
 	<div class="pure-control-group">
-		<label x-for="name">{{ label }}</label>
-		<input type="text" :placeholder="localPlaceholder">
+		<label :for="inputId">{{ label }}</label>
+		<input :id="inputId" :placeholder="localPlaceholder" type="text">
 		<span v-if="required" class="pure-form-message-inline">required</span>
 	</div>
 </template>
 
 <script>
-	export default {
-		name: "PureInput",
-		props: {
-			label: {
-				type: String,
-				default: 'Label'
-			},
-			placeholder: {
-				type: String,
-				default: ''
-			},
-			required: {
-				type: Boolean,
-				default: false
-			}
+import _uniqueId from 'lodash/uniqueId';
+
+const idPrefix = 'pureInput';
+
+export default {
+	name: "PureInput",
+	data() {
+		return {
+			inputId: _uniqueId(idPrefix)
+		}
+	},
+	props: {
+		label: {
+			type: String,
+			default: 'Label'
 		},
-		computed: {
-			localPlaceholder() {
-				return this.placeholder || this.label;
-			}
+		placeholder: {
+			type: String,
+			default: ''
+		},
+		required: {
+			type: Boolean,
+			default: false
+		}
+	},
+	computed: {
+		localPlaceholder() {
+			return this.placeholder || this.label;
 		}
 	}
+}
 </script>
 
 <style scoped>
-
+label {
+	cursor: pointer;
+}
 </style>

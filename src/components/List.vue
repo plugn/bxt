@@ -48,6 +48,11 @@
 			return {
 				msg: 'title'
 			}
-		}
+		},
+		computed: {
+			...mapGetters([
+
+			])
+		},
 	};
 </script>
