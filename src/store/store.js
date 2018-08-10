@@ -7,9 +7,11 @@ import mutations from './mutations'
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
-	state: state,
+const store = new Vuex.Store({
 	plugins: [localStorage],
+	state,
 	getters,
 	mutations
 });
+
+export default store;

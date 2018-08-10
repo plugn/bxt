@@ -12,26 +12,12 @@
 		</tr></thead>
 
 		<tbody>
-			<tr>
-				<td>Tom Sawyer</td>
-				<td>Mark Twain</td>
-				<td>300</td>
-				<td>1876</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Tom Sawyer</td>
-				<td>Mark Twain</td>
-				<td>300</td>
-				<td>1876</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Tom Sawyer</td>
-				<td>Mark Twain</td>
-				<td>300</td>
-				<td>1876</td>
-				<td></td>
+			<tr v-for="book in books">
+				<td>{{ book.title }}</td>
+				<td>{{ previewAuthors(book.authors) }}</td>
+				<td>{{ book.pagesCount }}</td>
+				<td>{{ book.pubYear }}</td>
+				<td> - </td>
 			</tr>
 		</tbody>
 	</table>
@@ -40,19 +26,32 @@
 </template>
 
 <script>
-	export default {
-		name: 'List',
-		components: {
-		},
-		data () {
-			return {
-				msg: 'title'
-			}
-		},
-		computed: {
-			...mapGetters([
+import {mapState, mapGetters, mapMutations} from 'vuex'
 
-			])
-		},
-	};
+export default {
+	name: 'List',
+	components: {
+	},
+	data () {
+		return {
+			msg: 'title'
+		}
+	},
+	computed: {
+		...mapState([
+			'books'
+		])
+		// ...mapGetters([
+		// ])
+	},
+	methods: {
+		previewAuthors(authors) {
+			return !authors.length
+				? 'Unknown'
+				: authors.map(
+				({firstName, lastName}) => ([firstName, lastName].join(' '))
+			).join(', ');
+		}
+	}
+};
 </script>
