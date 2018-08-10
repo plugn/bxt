@@ -1,10 +1,10 @@
 <template>
 <div>
-	<h3>Hi</h3>
-	<div>form goes here: {{ bookId }}</div>
+	<h4>{{ bookId ? 'Edit ' + bookModel.title : 'Create book' }}</h4>
 	<form class="pure-form pure-form-aligned"><fieldset>
-		<PureInput label="Title" required :value="bookModel.title" />
-		<PureInput label="label" placeholder="Enter here..." required />
+		<PureInput label="Title" :value="bookModel.title" required ></PureInput>
+
+		<PureInput label="Year" :value="bookModel.pubYear" placeholder="1970" required ></PureInput>
 
 		<div class="pure-controls">
 			<label for="cb" class="pure-checkbox">
@@ -40,7 +40,7 @@
 			},
 			bookModel() {
 				console.log(' * getter this.bookId: ', this.bookId);
-				return this.bookId && this.getBook(this.bookId) || null;
+				return this.bookId && this.getBook(this.bookId) || {};
 			}
 
 		},
