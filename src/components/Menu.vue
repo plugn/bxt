@@ -2,7 +2,7 @@
 	<div><ul class="menu">
 		<li><router-link to="/">Home</router-link></li>
 		<li><router-link to="/list">List</router-link></li>
-		<li><router-link to="/edit">Edit</router-link></li>
+		<li><router-link to="/edit">Create</router-link></li>
 	</ul></div>
 
 </template>

@@ -4,7 +4,13 @@
 	<form class="pure-form pure-form-aligned"><fieldset>
 		<PureInput label="Title" :value="bookModel.title" required ></PureInput>
 
-		<PureInput label="Year" :value="bookModel.pubYear" placeholder="1970" required ></PureInput>
+		<PureInput label="Year" :value="bookModel.pubYear" required ></PureInput>
+
+		<PureInput label="Pages Count" :value="bookModel.pagesCount" ></PureInput>
+
+		<PureInput label="Publisher" :value="bookModel.publisher"></PureInput>
+
+		<PureDateInput label="Release Date" :value="bookModel.releaseDate"></PureDateInput>
 
 		<div class="pure-controls">
 			<label for="cb" class="pure-checkbox">
@@ -20,15 +26,18 @@
 <script>
 	import {mapGetters} from 'vuex';
 	import PureInput from './form/PureInput';
+	import PureDateInput from './form/PureDateInput';
+	import { BookScheme } from "@/util/scheme";
 
 	export default {
 		name: 'Editor',
 		components: {
-			PureInput
+			PureInput,
+			PureDateInput
 		},
 		data() {
 			return {
-				// book: null
+				releaseDate: null
 			}
 		},
 		computed: {
@@ -41,15 +50,25 @@
 			bookModel() {
 				console.log(' * getter this.bookId: ', this.bookId);
 				return this.bookId && this.getBook(this.bookId) || {};
-			}
+			},
+
 
 		},
-		mounted() {
-			console.log(' * this.$route.params : ', this.$route.params);
-			console.log(' * this.bookModel: ', this.bookModel);
-				// this.getBook(this.$route.params.id));
+		methods: {
+			getReleaseDate() {
+				const releaseDate = BookScheme.find(field => field.name === 'releaseDate');
+				if (releaseDate) {
+					console.log(' * releaseDate.inputAttrs : ', releaseDate.inputAttrs);
+				}
 
+				return releaseDate;
+			}
+		},
+		mounted() {
+			this.releaseDate = this.getReleaseDate()
 		}
+
+
 	};
 </script>
 

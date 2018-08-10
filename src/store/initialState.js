@@ -6,15 +6,17 @@ export const state = {
 			authors: [{firstName:'Mark', lastName: 'Twain'}],
 			pagesCount: 300,
 			publisher: 'Hartford, Conn.',
-			pubYear: 1876
+			pubYear: 1876,
+			releaseDate: '1876-06-15'
 		},
 		{
 			id: 2,
 			title: 'Tarzan of the Apes',
 			authors: [{firstName:'Edgar', lastName: 'Burroughs'}],
 			pagesCount: 250,
-			publisher: 'Hartford, Conn.',
-			pubYear: 1876
+			publisher: 'A. C. McClurg',
+			pubYear: 1912,
+			releaseDate: '1912-10-16'
 		},
 		{
 			id: 3,

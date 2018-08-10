@@ -8,6 +8,14 @@ const validateStringProp = (obj, propName, maxLength) => {
 const NOW = new Date();
 const MIN_RELEASE_DATE = new Date('1800-01-01');
 
+export const buildDateString = date => (
+	[
+		date.getFullYear(),
+		String(date.getMonth() + 1).padStart(2, '0'),
+		String(date.getDate()).padStart(2, '0')
+	].join('-')
+);
+
 export const BookScheme = [
 	{
 		name: 'title',
@@ -55,6 +63,10 @@ export const BookScheme = [
 	{
 		name: 'releaseDate',
 		required: false,
+		inputAttrs: {
+			min: buildDateString(MIN_RELEASE_DATE),
+			max: buildDateString(NOW)
+		},
 		validate(val) {
 			return (typeof val === 'number') && (val >= Number(MIN_RELEASE_DATE));
 		}
