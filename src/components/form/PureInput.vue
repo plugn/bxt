@@ -1,7 +1,7 @@
 <template>
 	<div class="pure-control-group">
 		<label :for="inputId">{{ label }}</label>
-		<input :id="inputId" :placeholder="localPlaceholder" type="text">
+		<input :id="inputId" :placeholder="localPlaceholder" :value="value" type="text">
 		<span v-if="required" class="pure-form-message-inline">required</span>
 	</div>
 </template>
@@ -30,6 +30,9 @@ export default {
 		required: {
 			type: Boolean,
 			default: false
+		},
+		value: {
+			type: String
 		}
 	},
 	computed: {
