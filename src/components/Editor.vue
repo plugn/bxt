@@ -2,21 +2,43 @@
 <div>
 	<h4>{{ bookId ? 'Edit ' + bookModel.title : 'Create book' }}</h4>
 	<form class="pure-form pure-form-aligned"><fieldset>
-		<PureInput label="Title" :value="bookModel.title" required ></PureInput>
+		<PureInput label="Title"
+			:value="bookModel.title"
+			:required="bookModel.required"
+			:validate="bookModel.validate">
+		</PureInput>
 
-		<PureInput label="Year" :value="bookModel.pubYear" required ></PureInput>
+		<PureInput label="Year"
+			:value="bookModel.pubYear"
+			:required="bookModel.required"
+			:validate="bookModel.validate">
+		</PureInput>
 
-		<PureInput label="Pages Count" :value="bookModel.pagesCount" ></PureInput>
+		<PureInput label="Pages Count"
+			:value="bookModel.pagesCount"
+			:required="bookModel.required"
+			:validate="bookModel.validate">
+		</PureInput>
 
-		<PureInput label="Publisher" :value="bookModel.publisher"></PureInput>
+		<PureInput label="Publisher"
+			:value="bookModel.publisher"
+			:required="bookModel.required"
+			:validate="bookModel.validate">
+		</PureInput>
 
 		<PureDateInput label="Release Date"
-		   :value="bookModel.releaseDate"
-		   :min="dateInputParams.min"
-		   :max="dateInputParams.max"
-		></PureDateInput>
+			:value="bookModel.releaseDate"
+			:min="dateInputParams.min"
+			:max="dateInputParams.max"
+			:required="bookModel.required"
+			:validate="bookModel.validate">
+		</PureDateInput>
 
-		<PureInput label="ISBN" :value="bookModel.ISBN"></PureInput>
+		<PureInput label="ISBN"
+			:value="bookModel.ISBN"
+			:required="bookModel.required"
+			:validate="bookModel.validate">
+		</PureInput>
 
 		<div class="pure-controls">
 			<label for="cb" class="pure-checkbox">

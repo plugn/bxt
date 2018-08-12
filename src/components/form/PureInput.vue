@@ -1,14 +1,17 @@
 <template>
 	<div class="pure-control-group">
 		<label :for="inputId">{{ label }}</label>
-		<input :id="inputId" :placeholder="placeholder" :value="value" type="text">
+		<input :id="inputId"
+			:placeholder="placeholder"
+			type="text"
+			v-model="userValue"
+			@input="onInput($event.target.value)">
 		<span v-if="required" class="pure-form-message-inline">required</span>
 	</div>
 </template>
 
 <script>
 import _uniqueId from 'lodash/uniqueId';
-
 const idPrefix = 'pureInput';
 
 export default {
@@ -33,11 +36,23 @@ export default {
 		},
 		value: {
 			type: [String, Number]
+		},
+		validate: {
+			type: Function
 		}
 	},
 	computed: {
-		localPlaceholder() {
-			return this.placeholder || this.label;
+		userValue: {
+			get() { return this.value },
+			set(newValue) {
+				//this.userValue = newValue;
+			}
+		}
+	},
+	methods: {
+		onInput(value) {
+			console.log(' * onInput : ', value);
+
 		}
 	}
 }
