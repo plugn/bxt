@@ -5,7 +5,8 @@
 			:placeholder="placeholder"
 			type="text"
 			v-model="userValue"
-			@input="onInput($event.target.value)">
+			@input="onInput($event.target.value)"
+		>
 		<span v-if="required" class="pure-form-message-inline">required</span>
 	</div>
 </template>

@@ -1,7 +1,13 @@
 <template>
 	<div class="pure-control-group">
 		<label :for="inputId">{{ label }}</label>
-		<input :id="inputId" :value="value" type="date" :min="min" :max="max">
+		<input :id="inputId"
+			type="date"
+			:min="min"
+			:max="max"
+			v-model="userValue"
+			@input="onInput($event.target.value)"
+		>
 		<span v-if="required" class="pure-form-message-inline">required</span>
 	</div>
 </template>
