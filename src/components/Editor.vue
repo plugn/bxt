@@ -8,6 +8,11 @@
 			@validated="onFieldValidated"
 		></PureInput>
 
+		<AuthorsField label="Authors"
+			:value="bookModel.authors"
+			:scheme="schemeByName.authors"
+		></AuthorsField>
+
 		<PureInput label="Year"
 			:value="bookModel.pubYear"
 			:scheme="schemeByName.pubYear"
@@ -52,6 +57,7 @@
 import {mapGetters} from 'vuex';
 import PureInput from './form/PureInput';
 import PureDateInput from './form/PureDateInput';
+import AuthorsField from './AuthorsField';
 import { BookScheme, dateInputParams } from "@/util/scheme";
 
 const schemeByName = BookScheme.reduce((acc, v) => {
@@ -63,7 +69,8 @@ export default {
 	name: 'Editor',
 	components: {
 		PureInput,
-		PureDateInput
+		PureDateInput,
+		AuthorsField
 	},
 	data() {
 		return {

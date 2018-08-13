@@ -72,15 +72,5 @@ export default {
 </script>
 
 <style scoped>
-label {
-	cursor: pointer;
-}
-.need-correction {
-	color: firebrick;
-	background-color: rgba(178, 6, 29, 0.23);
-}
-.label-required {
-	color: crimson;
-	font-weight: bold;
-}
+@import './field.css';
 </style>

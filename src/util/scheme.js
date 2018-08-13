@@ -1,8 +1,8 @@
 import _get from 'lodash/get';
 import {ISBN} from './isbn';
 
-const validateStringProp = (obj, propName, maxLength) => {
-	const prop = _get(obj, propName, '');
+export const validateStringProp = (obj, propName, maxLength) => {
+	const prop = _get(obj, propName, '').trim();
 	return prop && prop.length && prop.length <= maxLength;
 };
 const NOW = new Date();
@@ -27,9 +27,8 @@ export const BookScheme = [
 		required: true,
 		type: String,
 		validate(val) {
-			return 'string' === typeof val &&
-				val.length > 0 &&
-				val.length <= 30;
+			val = String(val).trim();
+			return val.length > 0 && val.length <= 30;
 		}
 	},
 	{
@@ -59,7 +58,8 @@ export const BookScheme = [
 		type: String,
 		required: false,
 		validate(val) {
-			return (typeof val === 'string') && val.length && val.length <= 30
+			val = String(val).trim();
+			return val.length && val.length <= 30
 		}
 	},
 	{
@@ -67,7 +67,7 @@ export const BookScheme = [
 		type: Number,
 		required: false,
 		validate(val) {
-			return (typeof val === 'number') && val >= 1800 && val < Number(NOW.getFullYear());
+			return (typeof val === 'number') && val >= 1800 && val <= Number(NOW.getFullYear());
 		}
 	},
 	{
@@ -75,6 +75,7 @@ export const BookScheme = [
 		type: String,
 		required: false,
 		validate(val) {
+			val = String(val).trim();
 			return (new Date(val) >= MIN_RELEASE_DATE);
 		}
 	},
@@ -83,6 +84,7 @@ export const BookScheme = [
 		type: String,
 		required: false,
 		validate(val) {
+			val = String(val).trim();
 			return ISBN.validate(val);
 		}
 	},
