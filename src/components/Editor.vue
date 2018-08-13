@@ -4,41 +4,35 @@
 	<form class="pure-form pure-form-aligned"><fieldset>
 		<PureInput label="Title"
 			:value="bookModel.title"
-			:required="bookModel.required"
-			:validate="bookModel.validate">
-		</PureInput>
+			:scheme="schemeByName.title"
+		></PureInput>
 
 		<PureInput label="Year"
 			:value="bookModel.pubYear"
-			:required="bookModel.required"
-			:validate="bookModel.validate">
-		</PureInput>
+			:scheme="schemeByName.pubYear"
+		></PureInput>
 
 		<PureInput label="Pages Count"
 			:value="bookModel.pagesCount"
-			:required="bookModel.required"
-			:validate="bookModel.validate">
-		</PureInput>
+			:scheme="schemeByName.pagesCount"
+		></PureInput>
 
 		<PureInput label="Publisher"
 			:value="bookModel.publisher"
-			:required="bookModel.required"
-			:validate="bookModel.validate">
-		</PureInput>
+			:scheme="schemeByName.publisher"
+		></PureInput>
 
 		<PureDateInput label="Release Date"
 			:value="bookModel.releaseDate"
+			:scheme="schemeByName.releaseDate"
 			:min="dateInputParams.min"
 			:max="dateInputParams.max"
-			:required="bookModel.required"
-			:validate="bookModel.validate">
-		</PureDateInput>
+		></PureDateInput>
 
 		<PureInput label="ISBN"
 			:value="bookModel.ISBN"
-			:required="bookModel.required"
-			:validate="bookModel.validate">
-		</PureInput>
+			:scheme="schemeByName.ISBN"
+		></PureInput>
 
 		<div class="pure-controls">
 			<label for="cb" class="pure-checkbox">
@@ -57,6 +51,11 @@ import PureInput from './form/PureInput';
 import PureDateInput from './form/PureDateInput';
 import { BookScheme, dateInputParams } from "@/util/scheme";
 
+const schemeByName = BookScheme.reduce((acc, v) => {
+		acc[v.name] = v;
+		return acc
+	}, {});
+
 export default {
 	name: 'Editor',
 	components: {
@@ -65,7 +64,8 @@ export default {
 	},
 	data() {
 		return {
-			dateInputParams
+			dateInputParams,
+			schemeByName
 		}
 	},
 	computed: {
@@ -76,11 +76,8 @@ export default {
 			return Number(this.$route.params.id);
 		},
 		bookModel() {
-			console.log(' * getter this.bookId: ', this.bookId);
 			return this.bookId && this.getBook(this.bookId) || {};
 		}
-
-
 	}
 
 

@@ -7,8 +7,9 @@
 			:max="max"
 			v-model="userValue"
 			@input="onInput($event.target.value)"
+			:class="{'need-correction' :needCorrection}"
 		>
-		<span v-if="required" class="pure-form-message-inline">required</span>
+		<span v-if="scheme.required" class="pure-form-message-inline">required</span>
 	</div>
 </template>
 

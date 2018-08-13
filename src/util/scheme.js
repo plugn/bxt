@@ -25,6 +25,7 @@ export const BookScheme = [
 	{
 		name: 'title',
 		required: true,
+		type: String,
 		validate(val) {
 			return 'string' === typeof val &&
 				val.length > 0 &&
@@ -33,6 +34,7 @@ export const BookScheme = [
 	},
 	{
 		name: 'authors',
+		type: Array,
 		required: true,
 		validate(val) {
 			if (!Array.isArray(val) || !val.length) return false;
@@ -46,6 +48,7 @@ export const BookScheme = [
 	},
 	{
 		name: 'pagesCount',
+		type: Number,
 		required: false,
 		validate(val) {
 			return 'number' === typeof val && val > 0 && val <= 10000;
@@ -53,6 +56,7 @@ export const BookScheme = [
 	},
 	{
 		name: 'publisher',
+		type: String,
 		required: false,
 		validate(val) {
 			return (typeof val === 'string') && val.length && val.length <= 30
@@ -60,6 +64,7 @@ export const BookScheme = [
 	},
 	{
 		name: 'pubYear',
+		type: Number,
 		required: false,
 		validate(val) {
 			return (typeof val === 'number') && val >= 1800 && val < Number(NOW.getFullYear());
@@ -67,13 +72,15 @@ export const BookScheme = [
 	},
 	{
 		name: 'releaseDate',
+		type: String,
 		required: false,
 		validate(val) {
-			return (typeof val === 'number') && (val >= Number(MIN_RELEASE_DATE));
+			return (new Date(val) >= MIN_RELEASE_DATE);
 		}
 	},
 	{
 		name: 'ISBN',
+		type: String,
 		required: false,
 		validate(val) {
 			return ISBN.validate(val);
@@ -81,6 +88,7 @@ export const BookScheme = [
 	},
 	{
 		name: 'image',
+		type: String,
 		required: false,
 		validate(val) {
 			return typeof val === 'string';
