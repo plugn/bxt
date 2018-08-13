@@ -1,5 +1,3 @@
-import Loop from './Loop';
-
 /**
  *
  * @param str
@@ -29,10 +27,9 @@ export const ISBN = {
 
 	calcCheckDigit13(list) {
 		const rates = [1, 3];
-		const loop = new Loop(rates.length);
 
-		const reducer = (acc, chunk) => {
-			const rate = rates[ loop.getNextIndex() ];
+		const reducer = (acc, chunk, index) => {
+			const rate = rates[ index % rates.length ];
 			acc += (rate * Number(chunk));
 
 			return acc;

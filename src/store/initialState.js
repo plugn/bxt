@@ -10,7 +10,7 @@ export const state = {
 			releaseDate: '1876-06-15'
 		},
 		{
-			id: 3,
+			id: 2,
 			title: 'The Talisman',
 			authors: [
 				{firstName: 'Stephen', lastName: 'King'},

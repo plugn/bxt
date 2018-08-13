@@ -1,6 +1,6 @@
 <template>
 	<div class="pure-control-group">
-		<label :for="inputId">{{ label }}</label>
+		<label :for="inputId">{{ label }}<span v-if="scheme.required" class="label-required"> * </span></label>
 		<input :id="inputId"
 			:placeholder="placeholder"
 			:type="scheme.type === Number ? 'number' : 'text'"
@@ -8,7 +8,6 @@
 			@input="onInput($event.target.value)"
 			:class="{'need-correction' :needCorrection}"
 		>
-		<span v-if="scheme.required" class="pure-form-message-inline">required</span>
 	</div>
 </template>
 
@@ -77,6 +76,11 @@ label {
 	cursor: pointer;
 }
 .need-correction {
+	color: firebrick;
+	background-color: rgba(178, 6, 29, 0.23);
+}
+.label-required {
 	color: crimson;
+	font-weight: bold;
 }
 </style>

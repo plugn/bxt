@@ -49,7 +49,7 @@ export const BookScheme = [
 	{
 		name: 'pagesCount',
 		type: Number,
-		required: false,
+		required: true,
 		validate(val) {
 			return 'number' === typeof val && val > 0 && val <= 10000;
 		}
