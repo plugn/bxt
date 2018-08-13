@@ -3,7 +3,7 @@
 		<label :for="inputId">{{ label }}</label>
 		<input :id="inputId"
 			:placeholder="placeholder"
-			:type="scheme.type === Number ? 'number' : ''"
+			:type="scheme.type === Number ? 'number' : 'text'"
 			v-model="userValue"
 			@input="onInput($event.target.value)"
 			:class="{'need-correction' :needCorrection}"
