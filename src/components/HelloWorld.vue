@@ -30,6 +30,7 @@ export default {
 			let reader = new FileReader();
 			reader.onloadend = () => {
 				this.imgData = reader.result;
+				console.log(' * this.imgData: ', this.imgData);
 			};
 			// console.log(' * reader: ', reader, ' * file: ', file);
 			if (file) {

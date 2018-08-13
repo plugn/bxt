@@ -5,6 +5,7 @@
 		<PureInput label="Title"
 			:value="bookModel.title"
 			:scheme="schemeByName.title"
+			@validated="onFieldValidated"
 		></PureInput>
 
 		<PureInput label="Year"
@@ -79,6 +80,11 @@ export default {
 		},
 		bookModel() {
 			return this.bookId && this.getBook(this.bookId) || {};
+		}
+	},
+	methods: {
+		onFieldValidated(payload) {
+			console.log(' * fieldValidated() payload ', payload);
 		}
 	}
 

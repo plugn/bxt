@@ -15,7 +15,11 @@ export default {
 	}
 }
 </script>
-
+<style>
+	body {
+		font-size: .75rem;
+	}
+</style>
 <style scoped>
 	#app {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -24,6 +28,5 @@ export default {
 		color: #2c3e50;
 		margin: 10px 20px;
 	}
-
 </style>
 

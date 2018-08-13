@@ -46,7 +46,7 @@ export default {
 	},
 	computed: {
 		userValue: {
-			get() { return this.innerValue || this.value },
+			get() { return this.isTouched ? this.innerValue : this.innerValue || this.value },
 			set(newValue) { this.innerValue = newValue;}
 		},
 		needCorrection() {
@@ -63,7 +63,11 @@ export default {
 				this.isValid = validate(type(value));
 			}
 
+			this.$emit('validated', {name: this.scheme.name, isValid: this.isValid, value: this.innerValue});
+
 		}
+
+
 	}
 }
 </script>

@@ -19,7 +19,7 @@ export const buildDateString = date => (
 export const dateInputParams = {
 	min: buildDateString(MIN_RELEASE_DATE),
 	max: buildDateString(NOW)
-}
+};
 
 export const BookScheme = [
 	{
