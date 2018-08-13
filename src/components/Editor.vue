@@ -41,12 +41,6 @@
 		></PureInput>
 
 		<div class="pure-controls">
-<!--
-			<label for="cb" class="pure-checkbox">
-				<input id="cb" type="checkbox"> I've read the terms and conditions
-			</label>
--->
-
 			<button type="submit" class="pure-button pure-button-primary">Submit</button>
 		</div>
 	</fieldset></form>

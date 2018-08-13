@@ -46,7 +46,7 @@ export default {
 	computed: {
 		userValue: {
 			get() { return this.isTouched ? this.innerValue : this.innerValue || this.value },
-			set(newValue) { this.innerValue = newValue;}
+			set(newValue) { this.innerValue = newValue; }
 		},
 		needCorrection() {
 			return this.isTouched && !this.isValid
