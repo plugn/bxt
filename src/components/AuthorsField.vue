@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import {mapMutations, mapState, mapGetters} from 'vuex';
 import _debounce from 'lodash/debounce';
 import { BookScheme, validateAuthor } from "@/util/scheme";
 const emptyAuthor = {firstName:'', lastName: ''};
@@ -67,7 +68,8 @@ export default {
 			failedItemIds:[]
 		}
 	},
-
+	computed: {
+	},
 	created() {
 		this.innerValue = this.value.slice();
 	},
@@ -78,6 +80,9 @@ export default {
 	},
 
 	methods: {
+		...mapMutations([
+			'updateReport'
+		]),
 		// watch for changes in authors list
 		listWatcher(list) {
 			// console.log(' * listWatcher() list: ', JSON.stringify(list));
@@ -91,6 +96,13 @@ export default {
 			// replace reactive list with new value
 			this.failedItemIds.splice(0, this.failedItemIds.length, ...failedIds)
 			// console.log(' * this.failedItemIds: ', this.failedItemIds);
+			console.log(' * this.updateReport: ', this.updateReport);
+			this.updateReport({
+				name: 'authors', // this.scheme.name,
+				valid: ! failedIds.length,
+				value: list.slice()
+			});
+
 		},
 
 		// add new author fields watcher
