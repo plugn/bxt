@@ -1,14 +1,21 @@
 <template>
 <div class="wrapper">
-	<div class="pure-control-group" v-for="(author, index) in userValue" @mouseenter="hovered=index" @mouseleave="hovered=-1">
+	<div class="pure-control-group" v-for="(author, index) in userValue"
+		 @mouseenter="hovered=index" @mouseleave="hovered=-1">
 
 		<label v-if="index===0">{{ label }}
 			<span v-if="scheme.required" class="label-required"> * </span>
 		</label>
 		<label v-else>&nbsp;</label>
 
-		<input type="text" placeholder="First Name" :value="author.firstName" >
-		<input type="text" placeholder="Last Name" :value="author.lastName" >
+		<input type="text" placeholder="First Name"
+		   :value="author.firstName"
+		   @input="onItemInput('firstName', index, $event.target.value)"
+		>
+		<input type="text" placeholder="Last Name"
+		   :value="author.lastName"
+		   @input="onItemInput('lastName', index, $event.target.value)"
+		>
 
 		<span v-if="hovered===index" class="pure-form-message-inline">
 			<button class="button" @click.prevent="removeField(index)" title="remove item"> - </button>
@@ -64,8 +71,7 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(' *  AuthorsField', this.value);
-
+		// console.log(' *  AuthorsField', this.value);
 		this.$watch('newAuthor', _debounce(this.authorWatcher, 1000), {
 			deep: true
 		});
@@ -85,6 +91,12 @@ export default {
 
 		isListValid(value) {
 			return value.every(({firstName, lastName}) => (String(firstName).trim() && String(lastName).trim()) )
+		},
+
+		onItemInput(key, index, value) {
+			console.log(' * onItemInput() : ', {key, index, value} );
+			this.$set(this.innerValue, index, {...this.innerValue[index], [key]: value});
+			console.log(' * this.innerValue: ', JSON.stringify( this.innerValue) );
 		},
 
 		addField(author = {...emptyAuthor}) {

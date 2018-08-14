@@ -1,10 +1,19 @@
 import _get from 'lodash/get';
 import {ISBN} from './isbn';
 
-export const validateStringProp = (obj, propName, maxLength) => {
+export function validateStringProp (obj, propName, maxLength) {
 	const prop = _get(obj, propName, '').trim();
 	return prop && prop.length && prop.length <= maxLength;
-};
+}
+
+export function validateAuthor(author) {
+	if (!(typeof author === 'object' && author)) return false;
+
+	const isOkFirst = validateStringProp(author, 'firstName', 20);
+	const isOkLast = validateStringProp(author, 'lastName', 20);
+	return isOkFirst && isOkLast;
+}
+
 const NOW = new Date();
 const MIN_RELEASE_DATE = new Date('1800-01-01');
 
@@ -37,12 +46,7 @@ export const BookScheme = [
 		required: true,
 		validate(val) {
 			if (!Array.isArray(val) || !val.length) return false;
-
-			return val.every(author => {
-				const isOkFirst = validateStringProp(author, 'firstName', 20);
-				const isOkLast = validateStringProp(author, 'lastName', 20);
-				return isOkFirst && isOkLast;
-			});
+			return val.every(validateAuthor);
 		}
 	},
 	{
