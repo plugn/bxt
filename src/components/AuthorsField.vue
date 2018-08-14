@@ -1,7 +1,9 @@
 <template>
 <div class="wrapper">
 	<div class="pure-control-group" v-for="(author, index) in innerValue"
-		 @mouseenter="hovered=index" @mouseleave="hovered=-1">
+		 @mouseenter="hovered=index" @mouseleave="hovered=-1"
+		 :class="{'failed-row': isRowFailed(index) }"
+	>
 
 		<label v-if="index===0">{{ label }}
 			<span v-if="scheme.required" class="label-required"> * </span>
@@ -61,27 +63,39 @@ export default {
 			innerValue: [],
 			newAuthor: {...emptyAuthor},
 			hovered: -1,
-			failedRowIds:[]
+			// list of item IDs failed validation
+			failedItemIds:[]
 		}
 	},
-
-	// computed: {},
 
 	created() {
 		this.innerValue = this.value.slice();
 	},
 
 	mounted() {
-		this.$watch('newAuthor', _debounce(this.authorWatcher, 1000), {
-			deep: true
-		});
+		this.$watch('newAuthor', _debounce(this.authorWatcher, 1000), {deep: true});
+		this.$watch('innerValue', this.listWatcher);
 	},
+
 	methods: {
+		// watch for changes in authors list
+		listWatcher(list) {
+			// console.log(' * listWatcher() list: ', JSON.stringify(list));
+			// collect failed IDs
+			const report = list.map(validateAuthor);
+			const failedIds = report.reduce((acc, result, index) => {
+				if (!result) { acc.push(index); }
+				return acc;
+			}, []);
+
+			// replace reactive list with new value
+			this.failedItemIds.splice(0, this.failedItemIds.length, ...failedIds)
+			// console.log(' * this.failedItemIds: ', this.failedItemIds);
+		},
+
 		// add new author fields watcher
 		authorWatcher(author) {
-			// console.log(' * newAuthor author : ', JSON.stringify(author) );
-			const filled = this.isValueValid([author]);
-			if (filled) {
+			if (validateAuthor(author)) {
 				this.addField({...author});
 				// console.log(' * this.innerValue : ', JSON.stringify(this.innerValue));
 
@@ -89,9 +103,9 @@ export default {
 			}
 		},
 
-		// final field value validator
-		isValueValid(value) {
-			return value.every(validateAuthor);
+		// for setting HTML class
+		isRowFailed(index) {
+			return this.failedItemIds.includes(index);
 		},
 
 		onItemInput(key, index, value) {
@@ -116,5 +130,9 @@ export default {
 @import './form/field.css';
 .wrapper {
 	background-color: azure;
+}
+.failed-row input {
+	color: firebrick;
+	background-color: rgba(178, 6, 29, 0.23);
 }
 </style>

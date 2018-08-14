@@ -3,7 +3,7 @@ import {ISBN} from './isbn';
 
 export function validateStringProp (obj, propName, maxLength) {
 	const prop = _get(obj, propName, '').trim();
-	return prop && prop.length && prop.length <= maxLength;
+	return Boolean(prop.length && prop.length <= maxLength);
 }
 
 export function validateAuthor(author) {

@@ -18,7 +18,7 @@
 			:scheme="schemeByName.pubYear"
 		></PureInput>
 
-		<PureInput label="Pages Count"
+		<PureInput label="Pages"
 			:value="bookModel.pagesCount"
 			:scheme="schemeByName.pagesCount"
 		></PureInput>
