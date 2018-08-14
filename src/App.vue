@@ -17,7 +17,7 @@ export default {
 </script>
 <style>
 	body {
-		font-size: .85rem;
+		font-size: .75rem;
 	}
 </style>
 <style scoped>

@@ -6,7 +6,7 @@
 			:type="scheme.type === Number ? 'number' : 'text'"
 			v-model="userValue"
 			@input="onInput($event.target.value)"
-			:class="{'need-correction' :needCorrection}"
+			:class="{'need-correction': needCorrection}"
 		>
 	</div>
 </template>

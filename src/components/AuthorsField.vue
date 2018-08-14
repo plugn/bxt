@@ -1,6 +1,6 @@
 <template>
 <div class="wrapper">
-	<div class="pure-control-group" v-for="(author, index) in userValue"
+	<div class="pure-control-group" v-for="(author, index) in innerValue"
 		 @mouseenter="hovered=index" @mouseleave="hovered=-1">
 
 		<label v-if="index===0">{{ label }}
@@ -19,7 +19,6 @@
 
 		<span v-if="hovered===index" class="pure-form-message-inline">
 			<button class="button" @click.prevent="removeField(index)" title="remove item"> - </button>
-			remove
 		</span>
 
 	</div>
@@ -38,6 +37,7 @@
 
 <script>
 import _debounce from 'lodash/debounce';
+import { BookScheme, validateAuthor } from "@/util/scheme";
 const emptyAuthor = {firstName:'', lastName: ''};
 
 export default {
@@ -58,71 +58,55 @@ export default {
 
 	data() {
 		return {
-			hovered: -1,
-			isTouched: false,
 			innerValue: [],
-			newAuthor: {...emptyAuthor}
+			newAuthor: {...emptyAuthor},
+			hovered: -1,
+			failedRowIds:[]
 		}
 	},
 
-	computed: {
-		userValue() {
-			return this.isTouched ? this.innerValue : this.value;
-		}
+	// computed: {},
+
+	created() {
+		this.innerValue = this.value.slice();
 	},
+
 	mounted() {
-		// console.log(' *  AuthorsField', this.value);
 		this.$watch('newAuthor', _debounce(this.authorWatcher, 1000), {
 			deep: true
 		});
 	},
 	methods: {
+		// add new author fields watcher
 		authorWatcher(author) {
-			console.log(' * newAuthor author : ', JSON.stringify(author) );
-			const filled = this.isListValid([author]);
-			console.log(' * filled: ', filled);
+			// console.log(' * newAuthor author : ', JSON.stringify(author) );
+			const filled = this.isValueValid([author]);
 			if (filled) {
 				this.addField({...author});
-				console.log(' * this.innerValue : ', JSON.stringify(this.innerValue));
+				// console.log(' * this.innerValue : ', JSON.stringify(this.innerValue));
 
 				this.newAuthor = {...emptyAuthor};
 			}
 		},
 
-		isListValid(value) {
-			return value.every(({firstName, lastName}) => (String(firstName).trim() && String(lastName).trim()) )
+		// final field value validator
+		isValueValid(value) {
+			return value.every(validateAuthor);
 		},
 
 		onItemInput(key, index, value) {
-			console.log(' * onItemInput() : ', {key, index, value} );
+			// console.log(' * onItemInput() : ', {key, index, value} );
 			this.$set(this.innerValue, index, {...this.innerValue[index], [key]: value});
-			console.log(' * this.innerValue: ', JSON.stringify( this.innerValue) );
+			// console.log(' * this.innerValue: ', JSON.stringify( this.innerValue) );
 		},
 
 		addField(author = {...emptyAuthor}) {
-			console.log(' * addField() ', author);
-			let initial = [];
-			if (!this.isTouched) {
-				this.isTouched = true;
-				initial = this.value;
-			}
-			this.innerValue.splice(this.innerValue.length, 0, ...initial, author);
+			this.innerValue.splice(this.innerValue.length, 0, author);
 		},
+
 		removeField(index) {
-			console.log(' * removeField() ', index);
-			let initial = [];
-			if (!this.isTouched) {
-				this.isTouched = true;
-				// make initial array unlinked from original prop
-				initial = this.value.slice();
-				// remove element by index
-				initial.splice(index, 0);
-				// mutate .innerValue via splice() to achieve reactivity
-				this.innerValue.splice(this.innerValue.length, 0, ...initial)
-			}
-			else {
-				this.innerValue.splice(index, 1);
-			}
+			// console.log(' * removeField() ', index);
+			this.innerValue.splice(index, 1);
 		}
 	}
 };
