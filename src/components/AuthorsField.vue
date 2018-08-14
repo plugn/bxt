@@ -8,7 +8,7 @@
 		<input type="text" placeholder="Last Name" :value="author.lastName" >
 
 		<span v-if="index===0" class="pure-form-message-inline">
-			<button @click.prevent="addField"> + </button>
+			<!--<button @click.prevent="addField"> + </button>-->
 			<button @click.prevent="removeField"> - </button>
 		</span>
 	</div>
@@ -45,21 +45,24 @@ export default {
 
 	data() {
 		return {
-			innerValue: undefined,
+			isTouched: false,
+			innerValue: [],
 			newAuthor: {...emptyAuthor}
 		}
 	},
 
 	computed: {
 		userValue: {
-			get: function() { return this.innerValue || [...this.value]; },
+			get: function() {
+				return this.isTouched ? this.innerValue : this.value;
+			},
 			set: function(newValue) {
 				console.log(' * userValue newValue : ', newValue);
 				this.innerValue = newValue;
 			}
 		},
 		isListFilled() {
-			return this.isListValid(this.value);
+			return this.isListValid(this.userValue);
 		}
 	},
 	mounted() {
@@ -77,11 +80,11 @@ export default {
 			const filled = this.isListValid([author]);
 			console.log(' * filled: ', filled);
 			if (filled) {
-				console.log('push to ', this.userValue);
+				console.log('push to ', this.innerValue);
 
-				this.userValue.push({...author});
+				this.addField({...author});
 
-				console.log(' * this.userValue : ', this.userValue);
+				console.log(' * this.innerValue : ', this.innerValue);
 
 				this.newAuthor = {...emptyAuthor};
 			}
@@ -90,12 +93,28 @@ export default {
 		isListValid(value) {
 			return value.every(({firstName, lastName}) => (String(firstName).trim() && String(lastName).trim()) )
 		},
-		addField() {
-			console.log(' * addField() ');
+
+
+		addField(author = {...emptyAuthor}) {
+			console.log(' * addField() ', author);
+			let initial = [];
+			if (!this.isTouched) {
+				this.isTouched = true;
+				initial = this.value;
+			}
+			this.innerValue.splice(this.innerValue.length, 0, ...initial, author);
 		},
 		removeField() {
 			console.log(' * removeField() ');
-			this.userValue.splice(-1, 1);
+			let initial = [];
+			if (!this.isTouched) {
+				this.isTouched = true;
+				initial = this.value.slice(0, -1);
+				this.innerValue.splice(this.innerValue.length, 0, ...initial)
+			}
+			else {
+				this.innerValue.splice(this.innerValue.length - 1, 1);
+			}
 		}
 	}
 };
