@@ -1,19 +1,25 @@
 <template>
-<div>
-	<div class="pure-control-group" v-for="(author, index) in userValue">
-		<label v-if="index===0">{{ label }}<span v-if="scheme.required" class="label-required"> * </span></label>
+<div class="wrapper">
+	<div class="pure-control-group" v-for="(author, index) in userValue" @mouseenter="hovered=index" @mouseleave="hovered=-1">
+
+		<label v-if="index===0">{{ label }}
+			<span v-if="scheme.required" class="label-required"> * </span>
+		</label>
 		<label v-else>&nbsp;</label>
 
 		<input type="text" placeholder="First Name" :value="author.firstName" >
 		<input type="text" placeholder="Last Name" :value="author.lastName" >
 
-		<span v-if="index===0" class="pure-form-message-inline">
-			<!--<button @click.prevent="addField"> + </button>-->
-			<button @click.prevent="removeField"> - </button>
+		<span v-if="hovered===index" class="pure-form-message-inline">
+			<button class="button" @click.prevent="removeField(index)" title="remove item"> - </button>
+			remove
 		</span>
+
 	</div>
-	<div class="pure-control-group" v-if="isListFilled">
-		<label for="newInput">(fill to add)</label>
+	<div class="pure-control-group">
+		<label for="newInput">
+			(fill to add)
+		</label>
 
 		<input id="newInput" type="text" placeholder="First Name" v-model="newAuthor.firstName" >
 		<input type="text" placeholder="Last Name" v-model="newAuthor.lastName" >
@@ -45,6 +51,7 @@ export default {
 
 	data() {
 		return {
+			hovered: -1,
 			isTouched: false,
 			innerValue: [],
 			newAuthor: {...emptyAuthor}
@@ -52,17 +59,8 @@ export default {
 	},
 
 	computed: {
-		userValue: {
-			get: function() {
-				return this.isTouched ? this.innerValue : this.value;
-			},
-			set: function(newValue) {
-				console.log(' * userValue newValue : ', newValue);
-				this.innerValue = newValue;
-			}
-		},
-		isListFilled() {
-			return this.isListValid(this.userValue);
+		userValue() {
+			return this.isTouched ? this.innerValue : this.value;
 		}
 	},
 	mounted() {
@@ -71,8 +69,6 @@ export default {
 		this.$watch('newAuthor', _debounce(this.authorWatcher, 1000), {
 			deep: true
 		});
-
-
 	},
 	methods: {
 		authorWatcher(author) {
@@ -80,11 +76,8 @@ export default {
 			const filled = this.isListValid([author]);
 			console.log(' * filled: ', filled);
 			if (filled) {
-				console.log('push to ', this.innerValue);
-
 				this.addField({...author});
-
-				console.log(' * this.innerValue : ', this.innerValue);
+				console.log(' * this.innerValue : ', JSON.stringify(this.innerValue));
 
 				this.newAuthor = {...emptyAuthor};
 			}
@@ -93,7 +86,6 @@ export default {
 		isListValid(value) {
 			return value.every(({firstName, lastName}) => (String(firstName).trim() && String(lastName).trim()) )
 		},
-
 
 		addField(author = {...emptyAuthor}) {
 			console.log(' * addField() ', author);
@@ -104,16 +96,20 @@ export default {
 			}
 			this.innerValue.splice(this.innerValue.length, 0, ...initial, author);
 		},
-		removeField() {
-			console.log(' * removeField() ');
+		removeField(index) {
+			console.log(' * removeField() ', index);
 			let initial = [];
 			if (!this.isTouched) {
 				this.isTouched = true;
-				initial = this.value.slice(0, -1);
+				// make initial array unlinked from original prop
+				initial = this.value.slice();
+				// remove element by index
+				initial.splice(index, 0);
+				// mutate .innerValue via splice() to achieve reactivity
 				this.innerValue.splice(this.innerValue.length, 0, ...initial)
 			}
 			else {
-				this.innerValue.splice(this.innerValue.length - 1, 1);
+				this.innerValue.splice(index, 1);
 			}
 		}
 	}
@@ -122,4 +118,7 @@ export default {
 
 <style scoped>
 @import './form/field.css';
+.wrapper {
+	background-color: azure;
+}
 </style>
