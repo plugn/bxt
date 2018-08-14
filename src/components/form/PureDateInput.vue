@@ -5,9 +5,8 @@
 			type="date"
 			:min="min"
 			:max="max"
-			v-model="userValue"
-			@input="onInput($event.target.value)"
-			:class="{'need-correction' :needCorrection}"
+			v-model="innerValue"
+			:class="{'need-correction': !isValid}"
 		>
 		<span v-if="scheme.required" class="pure-form-message-inline">required</span>
 	</div>
@@ -27,7 +26,5 @@ export default {
 </script>
 
 <style scoped>
-label {
-	cursor: pointer;
-}
+@import './field.css';
 </style>

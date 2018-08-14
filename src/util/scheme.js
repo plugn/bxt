@@ -79,8 +79,8 @@ export const BookScheme = [
 		type: String,
 		required: false,
 		validate(val) {
-			val = String(val).trim();
-			return (new Date(val) >= MIN_RELEASE_DATE);
+			const date = new Date( String(val).trim() );
+			return (date >= MIN_RELEASE_DATE && date < NOW);
 		}
 	},
 	{

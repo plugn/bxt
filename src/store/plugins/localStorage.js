@@ -4,7 +4,7 @@ export const localStorage = store => {
 	store.subscribe((mutation, state) => {
 		// called after every mutation.
 		// The mutation comes in the format of `{ type, payload }`.
-		console.log(' * localStoragePlugin: ' + mutation.type + ' : ' , mutation.payload);
+		// console.log(' * localStoragePlugin: ' + mutation.type + ' : ' , mutation.payload);
 
 	})
 };

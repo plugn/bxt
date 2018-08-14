@@ -4,20 +4,20 @@
 		<input :id="inputId"
 			:placeholder="placeholder"
 			:type="scheme.type === Number ? 'number' : 'text'"
-			v-model="userValue"
-			@input="onInput($event.target.value)"
-			:class="{'need-correction': needCorrection}"
+			v-model="innerValue"
+			:class="{'need-correction': !isValid}"
 		>
 	</div>
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
 import _uniqueId from 'lodash/uniqueId';
 import _get from 'lodash/get';
 const idPrefix = 'pureInput';
 
 export default {
-	name: "PureDateInput",
+	name: "PureInput",
 	data() {
 		return {
 			isValid: true,
@@ -43,29 +43,34 @@ export default {
 			type: [String, Number]
 		}
 	},
-	computed: {
-		userValue: {
-			get() { return this.isTouched ? this.innerValue : this.innerValue || this.value },
-			set(newValue) { this.innerValue = newValue; }
-		},
-		needCorrection() {
-			return this.isTouched && !this.isValid
-		}
+
+	created() {
+		this.innerValue = this.value;
 	},
+
+	mounted() {
+		this.$watch('innerValue', this.valueWatcher);
+	},
+
 	methods: {
-		onInput(value) {
-			this.isTouched = true;
-			const validate = _get(this, 'scheme.validate');
-			const type = _get(this, 'scheme.type');
+		...mapMutations([
+			'updateReport'
+		]),
+		valueWatcher(value) {
+			// console.log(' * PureInput watcher value : ', value);
+			const validate = this.scheme.validate;
+			const type = this.scheme.type;
+			this.isValid = validate(type(value));
 
-			if (typeof validate === 'function') {
-				this.isValid = validate(type(value));
-			}
+			const report = {
+				name: this.scheme.name,
+				valid: this.isValid,
+				value: this.innerValue
+			};
+			// console.log(' * report : ', report);
 
-			this.$emit('validated', {name: this.scheme.name, isValid: this.isValid, value: this.innerValue});
-
+			this.updateReport(report);
 		}
-
 
 	}
 }

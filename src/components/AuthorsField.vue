@@ -68,8 +68,7 @@ export default {
 			failedItemIds:[]
 		}
 	},
-	computed: {
-	},
+
 	created() {
 		this.innerValue = this.value.slice();
 	},
@@ -94,11 +93,12 @@ export default {
 			}, []);
 
 			// replace reactive list with new value
-			this.failedItemIds.splice(0, this.failedItemIds.length, ...failedIds)
-			// console.log(' * this.failedItemIds: ', this.failedItemIds);
-			console.log(' * this.updateReport: ', this.updateReport);
+			this.failedItemIds.splice(0, this.failedItemIds.length, ...failedIds);
+
+			// console.log(' * this.updateReport: ', this.updateReport);
 			this.updateReport({
-				name: 'authors', // this.scheme.name,
+				name: this.scheme.name,
+				// faster way than scheme.validate()
 				valid: ! failedIds.length,
 				value: list.slice()
 			});

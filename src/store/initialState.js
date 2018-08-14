@@ -2,13 +2,13 @@ import { BookScheme } from "@/util/scheme";
 
 const emptyReport = {
 	valid: true,
-	value: undefined
-	// touched: false
+	value: undefined,
+	required: false
 };
 
 console.log(' * BookScheme: ', BookScheme);
 const reports = BookScheme.reduce((acc, field) => {
-	acc[field.name] = {...emptyReport};
+	acc[field.name] = { ...emptyReport, required: field.required };
 	return acc;
 }, {});
 
