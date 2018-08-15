@@ -1,6 +1,5 @@
 export default {
-	getReports: state => state.reports,
 	getReport: state => name => state.reports[name],
-	getBooks: state => state.books,
+	getReportsAsList: state => Object.keys(state.reports).map(name => ({...state.reports[name], name})),
 	getBook: state => id => state.books.find(book => book.id === id)
 };

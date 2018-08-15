@@ -59,6 +59,7 @@ export default {
 		valueWatcher(value) {
 			// console.log(' * PureInput watcher value : ', value);
 			const validate = this.scheme.validate;
+			// TODO: remove type
 			const type = this.scheme.type;
 			this.isValid = validate(type(value));
 

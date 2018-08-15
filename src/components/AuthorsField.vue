@@ -96,11 +96,14 @@ export default {
 			this.failedItemIds.splice(0, this.failedItemIds.length, ...failedIds);
 
 			// console.log(' * this.updateReport: ', this.updateReport);
+			const newValue = list.slice();
 			this.updateReport({
 				name: this.scheme.name,
+				// required: this.scheme.required,
 				// faster way than scheme.validate()
-				valid: ! failedIds.length,
-				value: list.slice()
+				// valid: ! failedIds.length,
+				valid: this.scheme.validate(newValue),
+				value: newValue
 			});
 
 		},

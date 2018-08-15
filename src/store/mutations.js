@@ -1,10 +1,15 @@
 import _uniqueId from 'lodash/uniqueId'
 import _findIndex from 'lodash/findIndex'
+import {defaultReports} from './reports';
 
 export default {
 	updateReport(state, {name, ...report}) {
 		const data = state.reports[name];
 		state.reports[name] = {...data, ...report};
+	},
+
+	resetReport(state) {
+		state.reports = {...defaultReports};
 	},
 
 	addBook(state, payload) {

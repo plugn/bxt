@@ -61,9 +61,11 @@ export const BookScheme = [
 		name: 'publisher',
 		type: String,
 		required: false,
+// TODO: NON REQIURED validation could be empty!
+// NOTE type(validate(val)) -> validate(val)
 		validate(val) {
 			val = String(val).trim();
-			return val.length && val.length <= 30
+			return val.length <= 30
 		}
 	},
 	{

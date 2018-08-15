@@ -1,22 +1,10 @@
-import { BookScheme } from "@/util/scheme";
-
-const emptyReport = {
-	valid: true,
-	value: undefined,
-	required: false
-};
-
-console.log(' * BookScheme: ', BookScheme);
-const reports = BookScheme.reduce((acc, field) => {
-	acc[field.name] = { ...emptyReport, required: field.required };
-	return acc;
-}, {});
+import { defaultReports } from './reports';
 
 export const state = {
 	settings: {
 		orderBy: {name: 'id', direction: 'ASC'}
 	},
-	reports,
+	reports: defaultReports,
 	books: [
 		{
 			id: 1,
