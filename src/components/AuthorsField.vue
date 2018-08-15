@@ -99,9 +99,6 @@ export default {
 			const newValue = list.slice();
 			this.updateReport({
 				name: this.scheme.name,
-				// required: this.scheme.required,
-				// faster way than scheme.validate()
-				// valid: ! failedIds.length,
 				valid: this.scheme.validate(newValue),
 				value: newValue
 			});

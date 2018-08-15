@@ -54,16 +54,18 @@ export const BookScheme = [
 		type: Number,
 		required: true,
 		validate(val) {
-			return 'number' === typeof val && val > 0 && val <= 10000;
+			val = Number(val);
+			return val > 0 && val <= 10000;
 		}
 	},
 	{
 		name: 'publisher',
 		type: String,
 		required: false,
-// TODO: NON REQIURED validation could be empty!
-// NOTE type(validate(val)) -> validate(val)
 		validate(val) {
+			// optional may be empty
+			if (val === '') { return true; }
+
 			val = String(val).trim();
 			return val.length <= 30
 		}
@@ -73,7 +75,11 @@ export const BookScheme = [
 		type: Number,
 		required: false,
 		validate(val) {
-			return (typeof val === 'number') && val >= 1800 && val <= Number(NOW.getFullYear());
+			// optional may be empty
+			if (val === '') { return true; }
+
+			val = Number(val);
+			return val >= 1800 && val <= Number(NOW.getFullYear());
 		}
 	},
 	{
@@ -81,6 +87,9 @@ export const BookScheme = [
 		type: String,
 		required: false,
 		validate(val) {
+			// optional may be empty
+			if (val === '') { return true; }
+
 			const date = new Date( String(val).trim() );
 			return (date >= MIN_RELEASE_DATE && date < NOW);
 		}
@@ -90,6 +99,9 @@ export const BookScheme = [
 		type: String,
 		required: false,
 		validate(val) {
+			// optional may be empty
+			if (val === '') { return true; }
+
 			val = String(val).trim();
 			return ISBN.validate(val);
 		}
@@ -98,9 +110,7 @@ export const BookScheme = [
 		name: 'image',
 		type: String,
 		required: false,
-		validate(val) {
-			return typeof val === 'string';
-		}
+		validate(val) { return true; }
 	}
 
 ];

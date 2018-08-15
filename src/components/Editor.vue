@@ -5,7 +5,6 @@
 		<PureInput label="Title"
 			:value="bookModel.title"
 			:scheme="schemeByName.title"
-			@validated="onFieldValidated"
 		></PureInput>
 
 		<AuthorsField label="Authors"
@@ -124,26 +123,24 @@ export default {
 		reportsWatcher() {
 			const changed = this.getReportsAsList.filter(v => 'undefined' !== typeof v.value);
 			const changedNames = changed.map( v => v.name );
-			const changesValid = changed.every( v => v.valid );
-			// const changedMixin = _pick(this.reports, changedNames)
-			// console.log(' * changedMixin: ', changedMixin);
-
-			console.log(' * changed reports: ', changedNames, 'valid: ', changesValid);
-			
-
-
 			// TODO:
 			// check whether all changes are valid
+			const changesValid = changed.every( v => v.valid );
+			console.log(' * changed reports \n names ', changedNames, ' \n valid: ', changesValid);
 
 			// merge initial model and changes
-			// this.merged = {...this.bookModel, ...changedMixin};
+			const changedMixin = changed.reduce((acc, item) => {
+				acc[item.name] = item.value;
+				return acc;
+			}, {});
+
+			const merged = {...this.bookModel, ...changedMixin};
+			console.log(' * changedMixin: ', changedMixin, ' \n merged: ', merged);
 
 			// check required fields are filled
-			
 
-		},
-		onFieldValidated(payload) {
-			console.log(' * fieldValidated() payload ', payload);
+			// validate non-required
+
 		}
 	}
 
