@@ -7,6 +7,9 @@
 </template>
 
 <script>
+// PureCSS styles
+import 'purecss/build/pure-min.css';
+
 import Menu from './components/Menu'
 export default {
 	name: 'App',
