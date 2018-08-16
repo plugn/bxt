@@ -34,7 +34,7 @@
 			(fill to add)
 		</label>
 
-		<input id="newInput" type="text" placeholder="First Name" v-model="newAuthor.firstName" >
+		<input ref="newInput" id="newInput" type="text" placeholder="First Name" v-model="newAuthor.firstName" >
 		<input type="text" placeholder="Last Name" v-model="newAuthor.lastName" >
 	</div>
 
@@ -89,7 +89,6 @@ export default {
 		]),
 		// watch for changes in authors list
 		listWatcher(list) {
-			// console.log(' * listWatcher() list: ', JSON.stringify(list));
 			// collect failed IDs
 			const report = list.map(validateAuthor);
 			const failedIds = report.reduce((acc, result, index) => {
@@ -117,6 +116,7 @@ export default {
 				// console.log(' * this.innerValue : ', JSON.stringify(this.innerValue));
 
 				this.newAuthor = {...emptyAuthor};
+				this.$refs.newInput.focus();
 			}
 		},
 
