@@ -56,7 +56,6 @@ export default {
 			'updateReport'
 		]),
 		valueWatcher(value) {
-			// console.log(' * PureInput watcher value : ', value);
 			const validate = this.scheme.validate;
 			this.isValid = validate(value);
 
@@ -65,7 +64,6 @@ export default {
 				valid: this.isValid,
 				value: this.innerValue
 			};
-			// console.log(' * report : ', report);
 
 			this.updateReport(report);
 		}

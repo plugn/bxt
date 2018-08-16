@@ -117,7 +117,6 @@ export default {
 		]),
 
 		save() {
-			// console.log(' * save() bookId: ', this.bookId);
 			if (isNaN(this.bookId)) {
 				this.addBook(this.formValues);
 			}

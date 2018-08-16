@@ -99,7 +99,6 @@ export default {
 			// replace reactive list with new value
 			this.failedItemIds.splice(0, this.failedItemIds.length, ...failedIds);
 
-			// console.log(' * this.updateReport: ', this.updateReport);
 			const newValue = list.slice();
 			this.updateReport({
 				name: this.scheme.name,
@@ -113,7 +112,6 @@ export default {
 		authorWatcher(author) {
 			if (validateAuthor(author)) {
 				this.addField({...author});
-				// console.log(' * this.innerValue : ', JSON.stringify(this.innerValue));
 
 				this.newAuthor = {...emptyAuthor};
 				this.$refs.newInput.focus();
@@ -126,9 +124,7 @@ export default {
 		},
 
 		onItemInput(key, index, value) {
-			// console.log(' * onItemInput() : ', {key, index, value} );
 			this.$set(this.innerValue, index, {...this.innerValue[index], [key]: value});
-			// console.log(' * this.innerValue: ', JSON.stringify( this.innerValue) );
 		},
 
 		addField(author = {...emptyAuthor}) {
@@ -136,7 +132,6 @@ export default {
 		},
 
 		removeField(index) {
-			// console.log(' * removeField() ', index);
 			this.innerValue.splice(index, 1);
 		}
 	}

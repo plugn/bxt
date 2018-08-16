@@ -22,8 +22,6 @@ export default {
 		const bookId = Math.max(...bookIds) + 1;
 		const newBook = {...payload, id: bookId};
 
-		console.log('addBook()', newBook);
-
 		state.books.push(newBook);
 	},
 

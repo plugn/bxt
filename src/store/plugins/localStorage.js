@@ -26,7 +26,7 @@ export const stateResolver = (prefix = defStoragePrefix, initialState) => {
 		return {...state, reports: {}};
 
 	} catch (e) {
-		console.log(' (!) store/plugins/localStorage : stateResolver()\n JSON.parse() stage error: ', e.message);
+		console.warn(' (!) store/plugins/localStorage : stateResolver()\n JSON.parse() stage error: ', e.message);
 
 		return initialState;
 	}

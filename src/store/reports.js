@@ -1,8 +1,6 @@
 import { BookScheme } from "@/util/scheme";
 import { emptyModel} from "@/util/helpers";
 
-// console.log(' * report BookScheme: ', BookScheme);
-
 export const defaultReports = model => BookScheme.reduce((acc, field) => {
 	const modelValue = model[field.name];
 	const value = typeof modelValue === 'undefined'
