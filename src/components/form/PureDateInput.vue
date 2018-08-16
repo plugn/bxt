@@ -1,6 +1,8 @@
 <template>
 	<div class="pure-control-group">
-		<label :for="inputId">{{ label }}</label>
+		<label :for="inputId">{{ label }}
+			<span v-if="scheme.required" class="label-required"> * </span>
+		</label>
 		<input :id="inputId"
 			type="date"
 			:min="min"
@@ -8,7 +10,6 @@
 			v-model="innerValue"
 			:class="{'need-correction': !isValid}"
 		>
-		<span v-if="scheme.required" class="pure-form-message-inline">required</span>
 	</div>
 </template>
 

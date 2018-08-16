@@ -2,7 +2,7 @@
 	<div class="hello">
 		<h3>{{ msg }}</h3>
 		<input type="file" @change="readFile($event)" @focus="clearImageData($event)" accept="image/*">
-    <button @click="clearImageData" v-if="imgData">x</button>
+ 		<button @click="clearImageData" v-if="imgData">x</button>
 		<br>
 		<img v-if="imgData" :src="imgData" title="Image Preview">
 	</div>

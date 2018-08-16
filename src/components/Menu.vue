@@ -1,7 +1,6 @@
 <template>
 	<div><ul class="menu">
-		<li><router-link to="/">Home</router-link></li>
-		<li><router-link to="/list">List</router-link></li>
+		<li><router-link to="/">List</router-link></li>
 		<li><router-link v-if="$route.name!=='Edit'" to="/edit">Create</router-link></li>
 	</ul></div>
 

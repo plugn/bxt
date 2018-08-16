@@ -21,7 +21,6 @@ export default {
 	data() {
 		return {
 			isValid: true,
-			isTouched: false,
 			innerValue: '',
 			inputId: _uniqueId(idPrefix)
 		}

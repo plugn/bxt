@@ -39,6 +39,11 @@
 			:scheme="schemeByName.ISBN"
 		></PureInput>
 
+		<PureFileInput label="Image"
+			:value="bookModel.image"
+			:scheme="schemeByName.image"
+		></PureFileInput>
+
 		<div class="pure-controls">
 			<button type="button"
 				class="pure-button pure-button-primary"
@@ -54,6 +59,7 @@
 import {mapGetters, mapState, mapMutations} from 'vuex';
 import PureInput from './form/PureInput';
 import PureDateInput from './form/PureDateInput';
+import PureFileInput from './form/PureFileInput';
 import AuthorsField from './AuthorsField';
 import { BookScheme, dateInputParams } from "@/util/scheme";
 import { schemeByName, requiredFieldNames, emptyModel } from "@/util/helpers";
@@ -65,6 +71,7 @@ export default {
 	components: {
 		PureInput,
 		PureDateInput,
+		PureFileInput,
 		AuthorsField
 	},
 	data() {
@@ -73,19 +80,10 @@ export default {
 			schemeByName
 		}
 	},
-	//created() {},
 	mounted() {
 		this.resetReport(this.bookModel);
-		console.log(' * bookModel : ', this.bookModel);
 	},
 
-	watch: {
-		'$route.params' (to) {
-			console.log('route.params (to, from, next) to: \n ', to,
-				'\n bookModel', this.bookModel);
-			// this.resetReport(this.bookModel);
-		}
-	},
 	computed: {
 		...mapState([
 			'reports'
@@ -119,7 +117,7 @@ export default {
 		]),
 
 		save() {
-			console.log(' * save() bookId: ', this.bookId);
+			// console.log(' * save() bookId: ', this.bookId);
 			if (isNaN(this.bookId)) {
 				this.addBook(this.formValues)
 			}
