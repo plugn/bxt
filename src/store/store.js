@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import localStorage from './plugins/localStorage'
-import { state } from './initialState'
+import { initialState } from './initialState'
+import { localStoragePlugin, stateResolver } from "./plugins/localStorage"
 import getters from './getters'
 import mutations from './mutations'
+
+const appStoragePrefix = 'MaxDVuex';
+const state = stateResolver(appStoragePrefix, initialState);
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-	plugins: [localStorage],
+	plugins: [localStoragePlugin(appStoragePrefix)],
 	state,
 	getters,
 	mutations

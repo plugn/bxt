@@ -1,10 +1,8 @@
-import { defaultReports } from './reports';
-
-export const state = {
+export const initialState = {
 	settings: {
 		orderBy: {name: 'id', direction: 'ASC'}
 	},
-	reports: defaultReports,
+	reports: {},
 	books: [
 		{
 			id: 1,

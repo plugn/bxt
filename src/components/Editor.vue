@@ -119,7 +119,7 @@ export default {
 		save() {
 			// console.log(' * save() bookId: ', this.bookId);
 			if (isNaN(this.bookId)) {
-				this.addBook(this.formValues)
+				this.addBook(this.formValues);
 			}
 			else {
 				this.updateBook({...this.formValues, id: this.bookId});
@@ -131,6 +131,3 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
