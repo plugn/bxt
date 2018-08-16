@@ -5,12 +5,14 @@
 	<table class="pure-table pure-table-bordered">
 		<thead><tr>
 			<th>title
-				<SortArrow :current="isCurrentSorting('title')" name="title" direction="DESC" @changed="this.sortList"></SortArrow>
+				<SortArrow :current="isCurrentSorting('title')" name="title"
+						:direction="getArrowDirection('title')" @changed="this.sortList"></SortArrow>
 			</th>
 			<th>authors</th>
 			<th>pages</th>
 			<th>year
-				<SortArrow :current="isCurrentSorting('pubYear')" name="pubYear" direction="DESC" @changed="this.sortList"></SortArrow>
+				<SortArrow :current="isCurrentSorting('pubYear')" name="pubYear"
+						   :direction="getArrowDirection('pubYear')" @changed="this.sortList"></SortArrow>
 			</th>
 			<th>image</th>
 			<th></th>
@@ -85,8 +87,11 @@ export default {
 		sortList(val) {
 			this.updateListSorting(val);
 		},
-		isCurrentSorting(name){
+		isCurrentSorting(name) {
 			return this.getOrderBy.name === name;
+		},
+		getArrowDirection(name) {
+			return this.getOrderBy.name === name ? this.getOrderBy.direction : '';
 		}
 	}
 };
