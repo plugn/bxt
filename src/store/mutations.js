@@ -1,4 +1,4 @@
-import _uniqueId from 'lodash/uniqueId'
+// import _uniqueId from 'lodash/uniqueId'
 import _findIndex from 'lodash/findIndex'
 import {defaultReports} from './reports';
 
@@ -13,15 +13,21 @@ export default {
 	},
 
 	addBook(state, payload) {
-		const bookId = _uniqueId('book_');
-		state.books.push({...payload, id: bookId});
+		// const bookId = _uniqueId('book_');
+		const bookIds = state.books.map(({id}) => id);
+		const bookId = Math.max(...bookIds) + 1;
+		const newBook = {...payload, id: bookId};
+
+		console.log('addBook()', newBook);
+
+		state.books.push(newBook);
 	},
 
-	updateBook(state, {id, payload}) {
+	updateBook(state, {id, ...payload}) {
 		const bookIndex = _findIndex(state.books, {id});
 		if (bookIndex !== -1) {
 			// avoid losing `id`
-			state.books[bookIndex] = {...payload, id};
+			state.books.splice(bookIndex, 1, {...payload, id})
 		}
 	},
 

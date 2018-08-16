@@ -43,7 +43,7 @@
 			<button type="button"
 				class="pure-button pure-button-primary"
 				:disabled="!isFormDataValid"
-
+				@click="save"
 			>Submit</button>
 		</div>
 	</fieldset></form>
@@ -73,16 +73,16 @@ export default {
 			schemeByName
 		}
 	},
-	created() {
-	},
+	//created() {},
 	mounted() {
 		this.resetReport(this.bookModel);
+		console.log(' * bookModel : ', this.bookModel);
+		
 		console.log(' * requiredFieldNames: ', requiredFieldNames);
 
-		this.$watch('reports', this.reportsWatcher, {deep: true});
+		// this.$watch('reports', this.reportsWatcher, {deep: true});
 	},
 	computed: {
-		// результаты работы mapState будут добавлены в уже существующий объект
 		...mapState([
 			'reports'
 		]),
@@ -93,8 +93,11 @@ export default {
 		bookId() {
 			return Number(this.$route.params.id);
 		},
+		formMode() {
+			return this.$route.name; // Edit|Add
+		},
 		bookModel() {
-			return this.bookId ? this.getBook(this.bookId) : {...emptyModel};
+			return !isNaN(this.bookId) ? this.getBook(this.bookId) : {...emptyModel};
 		},
 		isFormDataValid() {
 			return this.getReportsAsList.every( v => v.valid );
@@ -108,13 +111,22 @@ export default {
 	},
 	methods: {
 		...mapMutations([
-			'resetReport'
+			'resetReport',
+			'addBook',
+			'updateBook',
+			'removeBook'
 		]),
 
-		// TODO: remove watcher
-		reportsWatcher() {
-			console.log(' * this.formValues : ', this.formValues);
-			
+		save() {
+			console.log(' * save() bookId: ', this.bookId);
+			if (isNaN(this.bookId)) {
+				this.addBook(this.formValues)
+			}
+			else {
+				this.updateBook({...this.formValues, id: this.bookId});
+			}
+
+			// console.log(' * this.formValues : ', this.formValues);
 		}
 	}
 
