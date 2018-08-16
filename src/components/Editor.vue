@@ -125,8 +125,7 @@ export default {
 			else {
 				this.updateBook({...this.formValues, id: this.bookId});
 			}
-
-			// console.log(' * this.formValues : ', this.formValues);
+			this.$router.push({name: 'List'});
 		}
 	}
 
