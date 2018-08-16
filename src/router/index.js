@@ -20,12 +20,7 @@ export default new Router({
 			component: List
 		},
 		{
-			path: '/edit',
-			name: 'Add',
-			component: Editor
-		},
-		{
-			path: '/edit/:id',
+			path: '/edit/:id?',
 			name: 'Edit',
 			component: Editor
 		}

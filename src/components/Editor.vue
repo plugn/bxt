@@ -77,10 +77,14 @@ export default {
 	mounted() {
 		this.resetReport(this.bookModel);
 		console.log(' * bookModel : ', this.bookModel);
-		
-		console.log(' * requiredFieldNames: ', requiredFieldNames);
+	},
 
-		// this.$watch('reports', this.reportsWatcher, {deep: true});
+	watch: {
+		'$route.params' (to) {
+			console.log('route.params (to, from, next) to: \n ', to,
+				'\n bookModel', this.bookModel);
+			// this.resetReport(this.bookModel);
+		}
 	},
 	computed: {
 		...mapState([
@@ -92,9 +96,6 @@ export default {
 		]),
 		bookId() {
 			return Number(this.$route.params.id);
-		},
-		formMode() {
-			return this.$route.name; // Edit|Add
 		},
 		bookModel() {
 			return !isNaN(this.bookId) ? this.getBook(this.bookId) : {...emptyModel};
