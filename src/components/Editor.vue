@@ -40,7 +40,11 @@
 		></PureInput>
 
 		<div class="pure-controls">
-			<button type="submit" class="pure-button pure-button-primary">Submit</button>
+			<button type="button"
+				class="pure-button pure-button-primary"
+				:disabled="!isFormDataValid"
+
+			>Submit</button>
 		</div>
 	</fieldset></form>
 </div>
@@ -66,9 +70,7 @@ export default {
 	data() {
 		return {
 			dateInputParams,
-			schemeByName,
-			canSave: false,
-			merged: {}
+			schemeByName
 		}
 	},
 	created() {
@@ -93,6 +95,15 @@ export default {
 		},
 		bookModel() {
 			return this.bookId ? this.getBook(this.bookId) : {...emptyModel};
+		},
+		isFormDataValid() {
+			return this.getReportsAsList.every( v => v.valid );
+		},
+		formValues() {
+			return this.getReportsAsList.reduce((acc, item) => {
+				acc[item.name] = item.value;
+				return acc;
+			}, {});
 		}
 	},
 	methods: {
@@ -100,25 +111,12 @@ export default {
 			'resetReport'
 		]),
 
+		// TODO: remove watcher
 		reportsWatcher() {
-			const changed = this.getReportsAsList;
-			const changedNames = changed.map( v => v.name );
-			// TODO:
-			// check whether all changes are valid
-			const changesValid = changed.every( v => v.valid );
-			console.log(' * changed reports \n names ', changedNames, ' \n valid: ', changesValid);
-
-			// merge initial model and changes
-			const changedMixin = changed.reduce((acc, item) => {
-				acc[item.name] = item.value;
-				return acc;
-			}, {});
-
-			const merged = {...this.bookModel, ...changedMixin};
-			console.log(' * changedMixin: ', changedMixin, ' \n merged: ', merged);
+			console.log(' * this.formValues : ', this.formValues);
+			
 		}
 	}
-
 
 };
 </script>

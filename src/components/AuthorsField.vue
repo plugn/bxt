@@ -2,8 +2,7 @@
 <div class="wrapper">
 	<div class="pure-control-group" v-for="(author, index) in innerValue"
 		 @mouseenter="hovered=index" @mouseleave="hovered=-1"
-		 :class="{'failed-row': isRowFailed(index) }"
-	>
+		 :class="{'failed-row': isRowFailed(index) }">
 
 		<label v-if="index===0">{{ label }}
 			<span v-if="scheme.required" class="label-required"> * </span>
@@ -12,18 +11,24 @@
 
 		<input type="text" placeholder="First Name"
 		   :value="author.firstName"
-		   @input="onItemInput('firstName', index, $event.target.value)"
-		>
+		   @input="onItemInput('firstName', index, $event.target.value)">
+
 		<input type="text" placeholder="Last Name"
 		   :value="author.lastName"
-		   @input="onItemInput('lastName', index, $event.target.value)"
-		>
+		   @input="onItemInput('lastName', index, $event.target.value)">
 
 		<span v-if="hovered===index" class="pure-form-message-inline">
 			<button class="button" @click.prevent="removeField(index)" title="remove item"> - </button>
 		</span>
-
 	</div>
+
+	<div v-if="!innerValue.length" class="pure-control-group">
+		<label>{{ label }}
+			<span v-if="scheme.required" class="label-required"> * </span>
+		</label>
+		<span class="need-correction">Please, fill a line below</span>
+	</div>
+
 	<div class="pure-control-group">
 		<label for="newInput">
 			(fill to add)
