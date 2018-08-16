@@ -1,6 +1,6 @@
 export const initialState = {
 	settings: {
-		orderBy: {name: 'id', direction: 'ASC'}
+		orderBy: {name: 'title', direction: 'ASC'}
 	},
 	reports: {},
 	books: [

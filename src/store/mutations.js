@@ -3,6 +3,10 @@ import _findIndex from 'lodash/findIndex'
 import {defaultReports} from './reports';
 
 export default {
+	updateListSorting(state, {name, direction}) {
+		state.settings.orderBy = {name, direction};
+	},
+
 	updateReport(state, {name, ...report}) {
 		const data = state.reports[name];
 		state.reports[name] = {...data, ...report};

@@ -1,19 +1,23 @@
 <template>
 <div>
-	<h3>List</h3>
+	<h3>List of Books</h3>
 
 	<table class="pure-table pure-table-bordered">
 		<thead><tr>
-			<th>title</th>
+			<th>title
+				<SortArrow :current="isCurrentSorting('title')" name="title" direction="DESC" @changed="this.sortList"></SortArrow>
+			</th>
 			<th>authors</th>
 			<th>pages</th>
-			<th>year</th>
+			<th>year
+				<SortArrow :current="isCurrentSorting('pubYear')" name="pubYear" direction="DESC" @changed="this.sortList"></SortArrow>
+			</th>
 			<th>image</th>
 			<th></th>
 		</tr></thead>
 
 		<tbody>
-			<tr v-for="book in books">
+			<tr v-for="book in sortedBooks">
 				<td><router-link title="Edit" :to="`/edit/${ book.id }`">{{ book.title }}</router-link></td>
 				<td>{{ previewAuthors(book.authors) }}</td>
 				<td>{{ book.pagesCount }}</td>
@@ -39,27 +43,37 @@
 
 <script>
 import {mapState, mapGetters, mapMutations} from 'vuex'
+import SortArrow from './SortArrow'
+import _orderBy from 'lodash/orderBy'
 
 export default {
 	name: 'List',
 	components: {
+		SortArrow
 	},
 	data () {
 		return {
-			msg: 'title',
 			currentImage: ''
 		}
 	},
 	computed: {
 		...mapState([
-			'books'
-		])
-		// ...mapGetters([
-		// ])
+			'books',
+		]),
+		...mapGetters([
+			'getOrderBy'
+		]),
+		sortedBooks() {
+			let list = this.books.slice();
+			const sortConf = this.getOrderBy;
+
+			return _orderBy(list, [sortConf.name], [sortConf.direction.toLowerCase()])
+		}
 	},
 	methods: {
 		...mapMutations([
-			'removeBook'
+			'removeBook',
+			'updateListSorting'
 		]),
 		previewAuthors(authors) {
 			return !authors.length
@@ -67,6 +81,12 @@ export default {
 				: authors.map(
 				({firstName, lastName}) => ([firstName, lastName].join(' '))
 			).join(', ');
+		},
+		sortList(val) {
+			this.updateListSorting(val);
+		},
+		isCurrentSorting(name){
+			return this.getOrderBy.name === name;
 		}
 	}
 };

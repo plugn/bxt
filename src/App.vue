@@ -20,7 +20,7 @@ export default {
 </script>
 <style>
 	body {
-		font-size: 1rem;
+		font-size: .8rem;
 	}
 </style>
 <style scoped>
