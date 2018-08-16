@@ -6,13 +6,13 @@
 		<thead><tr>
 			<th>title
 				<SortArrow :current="isCurrentSorting('title')" name="title"
-						:direction="getArrowDirection('title')" @changed="this.sortList"></SortArrow>
+						:direction="getArrowDirection('title')" @changed="sortList"></SortArrow>
 			</th>
 			<th>authors</th>
 			<th>pages</th>
 			<th>year
 				<SortArrow :current="isCurrentSorting('pubYear')" name="pubYear"
-						   :direction="getArrowDirection('pubYear')" @changed="this.sortList"></SortArrow>
+						:direction="getArrowDirection('pubYear')" @changed="sortList"></SortArrow>
 			</th>
 			<th>image</th>
 			<th></th>
