@@ -19,10 +19,10 @@
 				<td>{{ book.pagesCount }}</td>
 				<td>{{ book.pubYear }}</td>
 				<td>
-					<span class="hand"
+					<span v-if="book.image" class="hand"
 						  @mouseenter="currentImage=book.image"
 						  @mouseleave="currentImage=''"
-						>{{ book.image ? 'show image' : ''}}</span> </td>
+						>show image</span></td>
 				<td>
 					<button class="button" @click.prevent="removeBook(book.id)" title="remove item"> remove </button>
 				</td>
