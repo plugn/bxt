@@ -8,8 +8,8 @@ export default {
 		state.reports[name] = {...data, ...report};
 	},
 
-	resetReport(state) {
-		state.reports = {...defaultReports};
+	resetReport(state, model) {
+		state.reports = {...defaultReports(model)};
 	},
 
 	addBook(state, payload) {

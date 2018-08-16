@@ -1,4 +1,5 @@
 import { BookScheme } from "@/util/scheme";
+import { emptyModel} from "@/util/helpers";
 
 export const emptyReport = {
 	valid: true,
@@ -7,7 +8,11 @@ export const emptyReport = {
 };
 
 // console.log(' * report BookScheme: ', BookScheme);
-export const defaultReports = BookScheme.reduce((acc, field) => {
-	acc[field.name] = { ...emptyReport, required: field.required };
+export const defaultReports = model => BookScheme.reduce((acc, field) => {
+	acc[field.name] = {
+		...emptyReport,
+		required: field.required,
+		value: model[field.name]
+	};
 	return acc;
 }, {});

@@ -52,29 +52,9 @@ import PureInput from './form/PureInput';
 import PureDateInput from './form/PureDateInput';
 import AuthorsField from './AuthorsField';
 import { BookScheme, dateInputParams } from "@/util/scheme";
+import { schemeByName, requiredFieldNames, emptyModel } from "@/util/helpers";
 import { _debounce } from 'lodash/debounce';
 import { _pick } from 'lodash/pick';
-
-// TODO move to helpers :
-const schemeByName = BookScheme.reduce((acc, v) => {
-		acc[v.name] = v;
-		return acc
-	}, {});
-
-const requiredFieldNames = BookScheme.filter( v => v.required ).map( v => v.name );
-
-const emptyModel = {
-	// id: -1,
-	title: '',
-	authors: [],
-	pagesCount: '',
-	publisher: '',
-	pubYear: '',
-	releaseDate: '',
-	ISBN: '',
-	image: ''
-};
-// EOF
 
 export default {
 	name: 'Editor',
@@ -92,9 +72,9 @@ export default {
 		}
 	},
 	created() {
-		this.resetReport();
 	},
 	mounted() {
+		this.resetReport(this.bookModel);
 		console.log(' * requiredFieldNames: ', requiredFieldNames);
 
 		this.$watch('reports', this.reportsWatcher, {deep: true});
@@ -121,7 +101,7 @@ export default {
 		]),
 
 		reportsWatcher() {
-			const changed = this.getReportsAsList.filter(v => 'undefined' !== typeof v.value);
+			const changed = this.getReportsAsList;
 			const changedNames = changed.map( v => v.name );
 			// TODO:
 			// check whether all changes are valid
@@ -136,11 +116,6 @@ export default {
 
 			const merged = {...this.bookModel, ...changedMixin};
 			console.log(' * changedMixin: ', changedMixin, ' \n merged: ', merged);
-
-			// check required fields are filled
-
-			// validate non-required
-
 		}
 	}
 
