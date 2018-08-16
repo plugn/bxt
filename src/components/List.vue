@@ -9,6 +9,7 @@
 			<th>pages</th>
 			<th>year</th>
 			<th>image</th>
+			<th></th>
 		</tr></thead>
 
 		<tbody>
@@ -17,13 +18,24 @@
 				<td>{{ previewAuthors(book.authors) }}</td>
 				<td>{{ book.pagesCount }}</td>
 				<td>{{ book.pubYear }}</td>
-				<td> </td>
+				<td>
+					<span class="hand"
+						  @mouseenter="currentImage=book.image"
+						  @mouseleave="currentImage=''"
+						>{{ book.image ? 'show image' : ''}}</span> </td>
+				<td>
+					<button class="button" @click.prevent="removeBook(book.id)" title="remove item"> remove </button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
+	<div class="previewImage" v-if="currentImage">
+		<img :src="currentImage" title="Image Preview">
+	</div>
 </div>
 
 </template>
+
 
 <script>
 import {mapState, mapGetters, mapMutations} from 'vuex'
@@ -34,7 +46,8 @@ export default {
 	},
 	data () {
 		return {
-			msg: 'title'
+			msg: 'title',
+			currentImage: ''
 		}
 	},
 	computed: {
@@ -45,6 +58,9 @@ export default {
 		// ])
 	},
 	methods: {
+		...mapMutations([
+			'removeBook'
+		]),
 		previewAuthors(authors) {
 			return !authors.length
 				? 'Unknown'
@@ -55,3 +71,15 @@ export default {
 	}
 };
 </script>
+
+<style scoped>
+	.hand {
+		cursor: pointer;
+	}
+	.previewImage {
+		padding: 30px;
+	}
+	.previewImage img {
+		height: 300px;
+	}
+</style>
