@@ -91,7 +91,7 @@ export default {
 			return this.getOrderBy.name === name;
 		},
 		getArrowDirection(name) {
-			return this.getOrderBy.name === name ? this.getOrderBy.direction : '';
+			return this.isCurrentSorting(name) ? this.getOrderBy.direction : '';
 		}
 	}
 };

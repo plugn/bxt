@@ -1,6 +1,7 @@
 <template>
 <div>
-	<h4>{{ bookId ? 'Edit ' + bookModel.title : 'Create new book' }}</h4>
+	<h3>{{ bookId ? 'Edit ' + bookModel.title : 'Create new book' }}</h3>
+
 	<form class="pure-form pure-form-aligned"><fieldset>
 		<PureInput label="Title"
 			:value="bookModel.title"

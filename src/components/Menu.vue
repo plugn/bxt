@@ -1,9 +1,10 @@
 <template>
-	<div><ul class="menu">
-		<li><router-link to="/">List</router-link></li>
-		<li><router-link v-if="$route.name!=='Edit'" to="/edit">Create</router-link></li>
-	</ul></div>
-
+	<div class="pure-menu pure-menu-horizontal">
+		<ul class="pure-menu-list">
+			<li class="pure-menu-item"><router-link to="/" class="pure-menu-link">List</router-link></li>
+			<li class="pure-menu-item"><router-link v-if="$route.name!=='Edit'" to="/edit" class="pure-menu-link">Create</router-link></li>
+		</ul>
+	</div>
 </template>
 
 <script>
@@ -13,29 +14,7 @@
 </script>
 
 <style scoped>
-	.menu {
-		text-align: center;
-	}
-
 	.router-link-exact-active {
 		text-decoration: none;
-	}
-
-	h1, h2 {
-		font-weight: normal;
-	}
-	ul {
-		list-style-type: none;
-		padding: 0;
-	}
-	li {
-		display: inline-block;
-		margin: 0 10px;
-	}
-	a {
-		color: #42b983;
-	}
-	img {
-		height: 200px;
 	}
 </style>
