@@ -82,8 +82,6 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(' * resetReport : ', this.bookModel );
-
 		this.resetReport(this.bookModel);
 	},
 

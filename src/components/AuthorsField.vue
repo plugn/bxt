@@ -79,8 +79,8 @@ export default {
 	},
 
 	mounted() {
-		this.$watch('value', value => { this.innerValue = value; }, {deep: true} );
-		this.$watch('innerValue', this.listWatcher, {deep: true});
+		this.$watch('value', value => { this.innerValue = value.slice(); });
+		this.$watch('innerValue', this.listWatcher);
 		this.$watch('newAuthor', _debounce(this.authorWatcher, 1000), {deep: true});
 	},
 
