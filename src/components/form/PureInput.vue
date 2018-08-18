@@ -48,6 +48,7 @@ export default {
 	},
 
 	mounted() {
+		this.$watch('value', value => { this.innerValue = value; } );
 		this.$watch('innerValue', this.valueWatcher);
 	},
 
