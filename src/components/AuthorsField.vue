@@ -79,8 +79,9 @@ export default {
 	},
 
 	mounted() {
+		this.$watch('value', value => { this.innerValue = value; }, {deep: true} );
+		this.$watch('innerValue', this.listWatcher, {deep: true});
 		this.$watch('newAuthor', _debounce(this.authorWatcher, 1000), {deep: true});
-		this.$watch('innerValue', this.listWatcher);
 	},
 
 	methods: {
@@ -114,7 +115,7 @@ export default {
 				this.addField({...author});
 
 				this.newAuthor = {...emptyAuthor};
-				this.$refs.newInput.focus();
+				// this.$refs.newInput.focus();
 			}
 		},
 
