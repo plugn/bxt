@@ -2,7 +2,8 @@
 <div class="wrapper">
 	<div class="pure-control-group" v-for="(author, index) in innerValue"
 		 @mouseenter="hovered=index" @mouseleave="hovered=-1"
-		 :class="{'failed-row': isRowFailed(index) }">
+		 :class="{'failed-row': isRowFailed(index) }"
+		 :key="innerValue[index]">		 
 
 		<label v-if="index===0">{{ label }}
 			<span v-if="scheme.required" class="label-required"> * </span>
