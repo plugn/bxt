@@ -6,7 +6,7 @@ module.exports = {
     ],
     rules: {
       // override/add rules settings here, such as:
-      'vue/require-v-for-key': false
+      'vue/require-v-for-key': 'off'
       // 'vue/no-unused-vars': 'error'
     }
   }

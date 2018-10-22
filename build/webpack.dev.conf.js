@@ -78,6 +78,9 @@ module.exports = new Promise((resolve, reject) => {
       process.env.PORT = port
       // add port to devServer config
       devWebpackConfig.devServer.port = port
+      if (config.dev.hasOwnProperty('disableHostCheck')) {
+        devWebpackConfig.devServer.disableHostCheck = config.dev.disableHostCheck
+      }
 
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
